@@ -7,11 +7,13 @@ def get_trending_repositories(top_size, days_ago):
     parameters_in_link = {
         'q': 'created:>{}'.format(created_date.strftime('%Y-%m-%d')),
         'sort': 'stars',
-        'order': 'desc'}
+        'order': 'desc',
+    }
     request_link = 'https://api.github.com/search/repositories'
     return requests.get(
         request_link,
-        params=parameters_in_link).json()['items'][:top_size]
+        params=parameters_in_link,
+    ).json()['items'][:top_size]
 
 
 def get_open_issues_amount(repository_owner, repository_name):
@@ -23,7 +25,10 @@ def get_open_issues_amount(repository_owner, repository_name):
 
 
 def print_data_to_console(
-        number, repository_name, repository_url, amount_issues):
+        number,
+        repository_name,
+        repository_url,
+        amount_issues):
     print('{}{}.{}Name: {}'.format('\n', number, '\t', repository_name))
     print('{}Url: {}'.format('\t', repository_url))
     print('{}Amount issues: {}{}'.format('\t', amount_issues, '\n'))
@@ -36,9 +41,11 @@ if __name__ == '__main__':
     for number, repository in enumerate(repositories, start=1):
         issues = get_open_issues_amount(
             repository['owner']['login'],
-            repository['name'])
+            repository['name'],
+        )
         print_data_to_console(
             number,
             repository['name'],
             repository['html_url'],
-            len(issues))
+            len(issues),
+        )
