@@ -21,7 +21,7 @@ def get_open_issues_amount(repository_owner, repository_name):
     return requests.get(request_link).json()
 
 
-def data_print(number, repository_name, repository_url, amount_issues):
+def print_data_to_console(number, repository_name, repository_url, amount_issues):
     print('{}{}.{}Name: {}'.format('\n', number, '\t', repository_name))
     print('{}Url: {}'.format('\t', repository_url))
     print('{}Amount issues: {}{}'.format('\t', amount_issues, '\n'))
@@ -35,7 +35,7 @@ if __name__ == '__main__':
         issues = get_open_issues_amount(
             repository['owner']['login'],
             repository['name'])
-        data_print(
+        print_data_to_console(
             number,
             repository['name'],
             repository['html_url'],
